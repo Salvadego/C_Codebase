@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include "../src/base/platform.h"
 
-#include "base/platform.h"
+#include <stdio.h>
 
 int main(void) {
         printf("cl       = %d\n", BASE_COMPILER_CLANG);

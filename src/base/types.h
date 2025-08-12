@@ -1,5 +1,3 @@
-#pragma once
-
 // Unsigned int types.
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -23,8 +21,3 @@ typedef void (*void_func_ptr)(void);
 
 #define true 1
 #define false 0
-
-#define null 0
-#define u32_max 4294967295
-
-#define ArrayCount(a) (sizeof(a) / sizeof((a)[0]))

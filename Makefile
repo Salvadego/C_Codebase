@@ -1,12 +1,14 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -std=c99
+ENABLE_ASSERT = -DENABLE_ASSERT=1
+CFLAGS = -Wall -Werror -Wextra -std=c99 $(ENABLE_ASSERT)
 TARGET_DIR = bin
+BUILD_DIR = build
 TARGET = $(TARGET_DIR)/main
-SRC = ./main.c
-OBJ = $(SRC:.c=.o)
+SRC = ./src/main.c
+OBJ = $(SRC:./src/%.c=$(BUILD_DIR)/%.o)
 DEBUGFLAGS = -DDEBUG
 
-.PHONY: all clean run
+.PHONY: all clean run test
 
 all: $(TARGET_DIR) $(TARGET)
 
@@ -16,7 +18,8 @@ $(TARGET_DIR):
 $(TARGET): $(OBJ)
 	@$(CC) -o $@ $< $(CFLAGS)
 
-$(SRC:.c=.o): $(SRC)
+$(BUILD_DIR)/%.o: ./src/%.c
+	@mkdir -p $(BUILD_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 run: all
@@ -29,3 +32,20 @@ clean:
 debug: CFLAGS += -DDEBUG
 debug: clean all
 
+TEST_PATH ?= test
+
+test:
+	@if [ -d "$(TEST_PATH)" ]; then \
+		echo "Running tests in directory $(TEST_PATH)..."; \
+		mkdir -p $(BUILD_DIR); \
+		for f in $(TEST_PATH)/*.c; do \
+			[ -f "$$f" ] || continue; \
+			$(CC) $(CFLAGS) -o $(BUILD_DIR)/$$(basename $$f .c) $$f && $(BUILD_DIR)/$$(basename $$f .c); \
+		done; \
+	elif [ -f "$(TEST_PATH)" ]; then \
+		echo "Running test file $(TEST_PATH)..."; \
+		mkdir -p $(BUILD_DIR); \
+		$(CC) $(CFLAGS) -o $(BUILD_DIR)/$$(basename $(TEST_PATH) .c) $(TEST_PATH) && $(BUILD_DIR)/$$(basename $(TEST_PATH) .c); \
+	else \
+		echo "Test file or directory '$(TEST_PATH)' not found."; exit 1; \
+	fi

@@ -1,4 +1,4 @@
 .cache
 bin
-*.o
+build
 compile_commands.json
