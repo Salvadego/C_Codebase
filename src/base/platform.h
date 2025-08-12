@@ -1,5 +1,5 @@
 #pragma once
-#include "types.h"
+#include "../defines.h"
 
 #ifndef BASE_PLATFORM_H
 #        define BASE_PLATFORM_H

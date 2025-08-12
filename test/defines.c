@@ -1,5 +1,5 @@
 
-#include "../src/base/defines.h"
+#include "../src/defines.h"
 
 #include <stdio.h>
 
@@ -8,13 +8,6 @@ void assert_unsigned(void) {
         Assert(sizeof(u16) == 2);
         Assert(sizeof(u32) == 4);
         Assert(sizeof(u64) == 8);
-}
-
-void assert_signed(void) {
-        Assert(sizeof(s8) == 1);
-        Assert(sizeof(s16) == 2);
-        Assert(sizeof(s32) == 4);
-        Assert(sizeof(s64) == 8);
 }
 
 void assert_integer(void) {
@@ -26,7 +19,6 @@ void assert_integer(void) {
 
 void assert_sizes(void) {
         assert_unsigned();
-        assert_signed();
         assert_integer();
 }
 

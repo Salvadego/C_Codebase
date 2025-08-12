@@ -1,9 +1,61 @@
 #pragma once
 
-#include "stdio.h"
-#include "string.h"
+#include <stdint.h>
+#include <string.h>
+#include <stdio.h>
+
 #include "stddef.h"
-#include "types.h"
+
+#define global static
+#define local static
+#define function static
+
+// Unsigned int types.
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+// Regular int types.
+typedef int8_t i8;
+typedef int16_t i16;
+typedef int32_t i32;
+typedef int64_t i64;
+
+// Float types.
+typedef float f32;
+typedef double f64;
+
+// Boolean types.
+typedef i8 b8;
+typedef i16 b16;
+
+#define true 1
+#define false 0
+
+// Void type.
+typedef void VoidFunc(void);
+
+// Constants
+global const u8 u8_max = 0xff;
+global const u16 u16_max = 0xffff;
+global const u32 u32_max = 0xffffffff;
+global const u64 u64_max = 0xffffffffffffffff;
+
+global const i8 i8_max = 0x7f;
+global const i16 i16_max = 0x7fff;
+global const i32 i32_max = 0x7fffffff;
+global const i64 i64_max = 0x7fffffffffffffff;
+
+global const u8 u8_min = 0;
+global const u16 u16_min = 0;
+global const u32 u32_min = 0;
+global const u64 u64_min = 0;
+
+global const i8 i8_min = -0x7f;
+global const i16 i16_min = -0x7fff;
+global const i32 i32_min = -0x7fffffff;
+global const i64 i64_min = -0x7fffffffffffffff;
 
 #define null 0
 #define u32_max 4294967295
@@ -86,7 +138,3 @@
 #define MemoryCopyArray(d, s) MemoryCopy((d), (s), Min(sizeof(s), sizeof(d)))
 #define MemoryCopyTyped(d, s, t) \
         MemoryCopy((d), (s), Min(sizeof(*(d)), sizeof(*(s))) * (t))
-
-#define global static
-#define local static
-#define function static
