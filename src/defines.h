@@ -1,14 +1,20 @@
 #pragma once
 
 #include <stdint.h>
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "stddef.h"
 
 #define global static
 #define local static
 #define function static
+
+/*
+ *
+ * NOTE: Types Aliases
+ *
+ * */
 
 // Unsigned int types.
 typedef uint8_t u8;
@@ -36,7 +42,12 @@ typedef i16 b16;
 // Void type.
 typedef void VoidFunc(void);
 
-// Constants
+/*
+ *
+ * NOTE: Constants
+ *
+ * */
+
 global const u8 u8_max = 0xff;
 global const u16 u16_max = 0xffff;
 global const u32 u32_max = 0xffffffff;
@@ -52,8 +63,93 @@ global const i16 i16_min = -0x7fff;
 global const i32 i32_min = -0x7fffffff;
 global const i64 i64_min = -0x7fffffffffffffff;
 
+global const f32 f32_machine_epsilon = 1.192092896e-07F;
+global const f32 f32_pi = 3.14159265359F;
+global const f32 f32_tau = 6.28318530718F;
+global const f32 f32_golden_ratio = 1.61803398875F;
+global const f32 f32_gold_small = 0.61803398875F;
+
+global const f64 f64_machine_epsilon = 2.220446e-16;
+global const f64 f64_pi = 3.14159265359;
+global const f64 f64_tau = 6.28318530718;
+global const f64 f64_golden_ratio = 1.61803398875;
+global const f64 f64_gold_small = 0.61803398875;
+
+/*
+ *
+ * NOTE: Float const functions
+ *
+ * */
+
+static inline f32 f32_inf(void) {
+        const u32 inf = 0x7f800000;
+        union {
+                f32 f;
+                u32 u;
+        } uni = {.u = inf};
+        return uni.f;
+}
+
+static inline f32 f32_neg_inf(void) {
+        const u32 neg_inf = 0xff800000;
+        union {
+                f32 f;
+                u32 u;
+        } uni = {.u = neg_inf};
+        return uni.f;
+}
+
+static inline f64 f64_inf(void) {
+        const u64 inf = 0x7ff0000000000000;
+        union {
+                f64 f;
+                u64 u;
+        } uni = {.u = inf};
+        return uni.f;
+}
+
+static inline f64 f64_neg_inf(void) {
+        const u64 neg_inf = 0xfff0000000000000;
+        union {
+                f64 f;
+                u64 u;
+        } uni = {.u = neg_inf};
+        return uni.f;
+}
+
+/*
+ *
+ * NOTE: Float functions
+ *
+ * */
+
+static inline f32 f32_abs(f32 num) {
+        const u32 mask = 0x7fffffff;
+        union {
+                f32 f;
+                u32 u;
+        } uni = {.f = num};
+        uni.u &= mask;
+        return uni.f;
+}
+
+static inline f64 f64_abs(f64 num) {
+        const u64 mask = 0x7fffffffffffffff;
+        union {
+                f64 f;
+                u64 u;
+        } uni = {.f = num};
+        uni.u &= mask;
+        return uni.f;
+}
+
 #define null 0
-#define u32_max 4294967295
+
+/*
+ *
+ * NOTE: USEFUL MACROS
+ *
+ * */
 
 #define Statement(S) \
         do {         \

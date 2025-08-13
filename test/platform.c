@@ -1,8 +1,10 @@
 #include "../src/base/platform.h"
 
 #include <stdio.h>
+#include <string.h>
 
 int main(void) {
+        strerror(2);
         printf("cl       = %d\n", BASE_COMPILER_CLANG);
         printf("gcc      = %d\n", BASE_COMPILER_GCC);
         printf("msvc     = %d\n", BASE_COMPILER_MSVC);

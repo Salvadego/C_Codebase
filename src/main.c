@@ -1,15 +1,16 @@
 #include "defines.h"
 
 #define EvalPrint(x) printf("%s = %d\n", #x, (int)x)
+#define EvalPrintf(x) printf("%s = %f\n", #x, (float)x)
 
 typedef struct {
-        u8 b;
-        u16 c;
-        u32 d;
         size_t a;
+        u32 d;
+        u16 c;
+        u8 b;
 } TestStruct;
 
-int main(void) {
+i32 main(void) {
         size_t foo[100];
         for (size_t i = 0; i < ArrayCount(foo); i++) {
                 foo[i] = i;
@@ -36,4 +37,10 @@ int main(void) {
         EvalPrint(test.a);
         MemoryZeroStruct(&test);
         EvalPrint(test.a);
+
+        EvalPrintf(f32_inf());
+        EvalPrintf(f32_neg_inf());
+        EvalPrintf(f64_inf());
+        EvalPrintf(f64_neg_inf());
+
 }
