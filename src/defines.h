@@ -47,11 +47,6 @@ global const i16 i16_max = 0x7fff;
 global const i32 i32_max = 0x7fffffff;
 global const i64 i64_max = 0x7fffffffffffffff;
 
-global const u8 u8_min = 0;
-global const u16 u16_min = 0;
-global const u32 u32_min = 0;
-global const u64 u64_min = 0;
-
 global const i8 i8_min = -0x7f;
 global const i16 i16_min = -0x7fff;
 global const i32 i32_min = -0x7fffffff;
@@ -112,6 +107,8 @@ global const i64 i64_min = -0x7fffffffffffffff;
 #define PtrFromInt(i) ((void *)(uintptr_t)(i))
 
 #define OffsetOfMember(T, m) offsetof(T, m)
+#define SizeOfType(T) sizeof(T)
+#define AlignOfType(T) _Alignof(T)
 
 #define Gigabytes(count) (u64)((count) * 1024 * 1024 * 1024)
 #define Megabytes(count) (u64)((count) * 1024 * 1024)

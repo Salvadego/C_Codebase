@@ -3,10 +3,10 @@
 #define EvalPrint(x) printf("%s = %d\n", #x, (int)x)
 
 typedef struct {
+        u8 b;
+        u16 c;
+        u32 d;
         size_t a;
-        size_t b;
-        size_t c;
-        size_t d;
 } TestStruct;
 
 int main(void) {
@@ -29,6 +29,8 @@ int main(void) {
         EvalPrint(OffsetOfMember(TestStruct, b));
         EvalPrint(OffsetOfMember(TestStruct, c));
         EvalPrint(OffsetOfMember(TestStruct, d));
+        EvalPrint(SizeOfType(TestStruct));
+        EvalPrint(AlignOfType(TestStruct));
 
         TestStruct test = {.a = 1, .b = 2, .c = 3, .d = 4};
         EvalPrint(test.a);
