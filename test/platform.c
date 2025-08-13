@@ -1,4 +1,4 @@
-#include "../src/base/platform.h"
+#include "../src/base/base.h"
 
 #include <stdio.h>
 #include <string.h>

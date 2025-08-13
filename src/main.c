@@ -1,4 +1,5 @@
-#include "defines.h"
+#include <stdio.h>
+#include "base/base.h"
 
 #define EvalPrint(x) printf("%s = %d\n", #x, (int)x)
 #define EvalPrintf(x) printf("%s = %f\n", #x, (float)x)
@@ -43,4 +44,6 @@ i32 main(void) {
         EvalPrintf(f64_inf());
         EvalPrintf(f64_neg_inf());
 
+        f32 a = f32_abs(f32_neg_inf());
+        printf("%f\n", a);
 }
