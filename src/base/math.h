@@ -6,6 +6,9 @@
  *
  * */
 
+#include "macros.h"
+#include "types.h"
+
 function inline f32 f32_abs(f32 num) {
         const u32 mask = 0x7fffffff;
         union {

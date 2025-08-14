@@ -2,49 +2,18 @@
 
 #include "base/base.h"
 
-#define EvalPrint(x) printf("%s = %d\n", #x, (int)x)
-#define EvalPrintf(x) printf("%s = %f\n", #x, (float)x)
-
-typedef struct {
-        size_t a;
-        u32 d;
-        u16 c;
-        u8 b;
-} TestStruct;
-
 i32 main(void) {
-        size_t foo[100];
-        for (size_t i = 0; i < ArrayCount(foo); i++) {
-                foo[i] = i;
-        }
+        OperatingSystem os_ = OperatingSystem_Linux;
+        printf("%s\n", OperatingSystemToString(os_));
 
-        EvalPrint(ArrayCount(foo));
+        Architecture arch = Architecture_X86_64;
+        printf("%s\n", ArchitectureToString(arch));
 
-        size_t bar[100];
-        MemoryCopyArray(bar, foo);
-        EvalPrint(bar[50]);
-        EvalPrint(MemoryMatch(foo, bar, sizeof(foo)));
-        MemoryZeroArray(bar);
-        EvalPrint(bar[50]);
-        EvalPrint(MemoryMatch(foo, bar, sizeof(foo)));
+        Month month = Month_January;
+        printf("%s\n", MonthToStringShort(month));
+        printf("%s\n", MonthToStringLong(month));
 
-        EvalPrint(OffsetOfMember(TestStruct, a));
-        EvalPrint(OffsetOfMember(TestStruct, b));
-        EvalPrint(OffsetOfMember(TestStruct, c));
-        EvalPrint(OffsetOfMember(TestStruct, d));
-        EvalPrint(SizeOfType(TestStruct));
-        EvalPrint(AlignOfType(TestStruct));
-
-        TestStruct test = {.a = 1, .b = 2, .c = 3, .d = 4};
-        EvalPrint(test.a);
-        MemoryZeroStruct(&test);
-        EvalPrint(test.a);
-
-        EvalPrintf(f32_inf());
-        EvalPrintf(f32_neg_inf());
-        EvalPrintf(f64_inf());
-        EvalPrintf(f64_neg_inf());
-
-        f32 a = f32_abs(f32_neg_inf());
-        printf("%f\n", a);
+        DayOfWeek day = DayOfWeek_Monday;
+        printf("%s\n", DayOfWeekToStringShort(day));
+        printf("%s\n", DayOfWeekToStringLong(day));
 }

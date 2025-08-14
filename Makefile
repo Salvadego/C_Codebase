@@ -28,6 +28,7 @@ run: all
 clean:
 	rm -f $(TARGET) $(OBJ)
 	rm -rf $(TARGET_DIR)
+	rm -rf $(BUILD_DIR)
 
 debug: CFLAGS += -DDEBUG
 debug: clean all
