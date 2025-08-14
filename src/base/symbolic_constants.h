@@ -131,26 +131,35 @@ local const char *DayOfWeekLong[] = {
 };
 
 function inline const char *MonthToStringShort(Month month) {
-        return (month < MonthsInYear) ? MonthShort[month] : "Unknown";
+        return (month >= 0 && month < MonthsInYear)
+                   ? MonthShort[month]
+                   : "Unknown";
 }
 
 function inline const char *MonthToStringLong(Month month) {
-        return (month < MonthsInYear) ? MonthLong[month] : "Unknown";
+        return (month >= 0 && month < MonthsInYear) ? MonthLong[month]
+                                                    : "Unknown";
 }
 
 function inline const char *DayOfWeekToStringShort(DayOfWeek day) {
-        return (day < DaysInWeek) ? DayOfWeekShort[day] : "Unknown";
+        return (day >= 0 && day < DaysInWeek) ? DayOfWeekShort[day]
+                                              : "Unknown";
 }
 
 function inline const char *DayOfWeekToStringLong(DayOfWeek day) {
-        return (day < DaysInWeek) ? DayOfWeekLong[day] : "Unknown";
+        return (day >= 0 && day < DaysInWeek) ? DayOfWeekLong[day]
+                                              : "Unknown";
 }
 
-function inline const char *OperatingSystemToString(OperatingSystem osv) {
-        return (osv < OperatingSystem_Count) ? OperatingSystemName[osv]
-                                             : "Unknown";
+function inline const char *OperatingSystemToString(
+    OperatingSystem osv) {
+        return (osv >= 0 && osv < OperatingSystem_Count)
+                   ? OperatingSystemName[osv]
+                   : "Unknown";
 }
 
 function inline const char *ArchitectureToString(Architecture arch) {
-        return (arch < Architecture_Count) ? ArchitectureName[arch] : "Unknown";
+        return (arch >= 0 && arch < Architecture_Count)
+                   ? ArchitectureName[arch]
+                   : "Unknown";
 }
