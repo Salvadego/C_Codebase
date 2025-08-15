@@ -2,6 +2,7 @@
 #pragma once
 
 #include "macros.h"
+#include "platform.h"
 #include "types.h"
 
 enum Axis {
@@ -25,6 +26,7 @@ typedef enum OperatingSystem {
         OperatingSystem_OpenBSD,
         OperatingSystem_Illumos,
         OperatingSystem_Unix,
+        OperatingSystem_Unknown,
         OperatingSystem_Count,
 } OperatingSystem;
 
@@ -33,6 +35,7 @@ typedef enum Architecture {
         Architecture_X86_32,
         Architecture_ARM64,
         Architecture_ARM32,
+        Architecture_Unknown,
         Architecture_Count,
 } Architecture;
 
@@ -73,6 +76,7 @@ local const char *OperatingSystemName[] = {
     [OperatingSystem_OpenBSD] = "OpenBSD",
     [OperatingSystem_Illumos] = "Illumos",
     [OperatingSystem_Unix] = "Unix",
+    [OperatingSystem_Unknown] = "Unknown",
 };
 
 local const char *ArchitectureName[] = {
@@ -80,6 +84,7 @@ local const char *ArchitectureName[] = {
     [Architecture_X86_32] = "X86_32",
     [Architecture_ARM64] = "ARM64",
     [Architecture_ARM32] = "ARM32",
+    [Architecture_Unknown] = "Unknown",
 };
 
 local const char *MonthShort[] = {
@@ -162,4 +167,42 @@ function inline const char *ArchitectureToString(Architecture arch) {
         return (arch >= 0 && arch < Architecture_Count)
                    ? ArchitectureName[arch]
                    : "Unknown";
+}
+
+function inline OperatingSystem OperatingSystemFromContext() {
+        OperatingSystem result = OperatingSystem_Unknown;
+
+#if BASE_OS_WINDOWS == 1
+        result = OperatingSystem_Windows;
+#elif BASE_OS_MACOS == 1
+        result = OperatingSystem_MacOS;
+#elif BASE_OS_LINUX == 1
+        result = OperatingSystem_Linux;
+#elif BASE_OS_FREEBSD == 1
+        result = OperatingSystem_FreeBSD;
+#elif BASE_OS_NETBSD == 1
+        result = OperatingSystem_NetBSD;
+#elif BASE_OS_OPENBSD == 1
+        result = OperatingSystem_OpenBSD;
+#elif BASE_OS_ILLUMOS == 1
+        result = OperatingSystem_Illumos;
+#elif BASE_OS_UNIX == 1
+        result = OperatingSystem_Unix;
+#endif
+
+        return result;
+}
+
+function inline Architecture ArchitectureFromContext() {
+        Architecture result = Architecture_Unknown;
+#if BASE_ARCH_X86_64 == 1
+        result = Architecture_X86_64;
+#elif BASE_ARCH_X86_32 == 1
+        result = Architecture_X86_32;
+#elif BASE_ARCH_ARM64 == 1
+        result = Architecture_ARM64;
+#elif BASE_ARCH_ARM32 == 1
+        result = Architecture_ARM32;
+#endif
+        return result;
 }

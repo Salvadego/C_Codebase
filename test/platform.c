@@ -1,7 +1,7 @@
-#include "../src/base/base.h"
-
 #include <stdio.h>
 #include <string.h>
+
+#include "../src/base/base.h"
 
 int main(void) {
         strerror(2);
