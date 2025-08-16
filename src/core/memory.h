@@ -34,6 +34,22 @@ void *mem_realloc(void *ptr, u64 size);
 void mem_free(void *ptr);
 
 // ===============
+// Allocator Type
+// ===============
+
+typedef void *(*AllocatorAlloc)(u64 size);
+typedef void *(*AllocatorAllocZero)(u64 size);
+typedef void *(*AllocatorRealloc)(void *ptr, u64 size);
+typedef void (*AllocatorFree)(void *ptr);
+
+typedef struct {
+        AllocatorAlloc alloc;
+        AllocatorAllocZero alloc_zero;
+        AllocatorRealloc realloc;
+        AllocatorFree free;
+} Allocator;
+
+// ===============
 // Arena Allocator
 // ===============
 
