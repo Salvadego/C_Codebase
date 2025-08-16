@@ -132,16 +132,24 @@ b8 StringView_endsWith(StringView sv, StringView suffix) {
         return StringView_equals(suffix, actualSuffix);
 }
 
-void StringView_toLower(StringView *sv) {
-        for (u64 i = 0; i < sv->length; ++i) {
-                sv->data[i] = tolower(sv->data[i]);
+char *StringView_toLower(Allocator allocator, StringView sv) {
+        char *result = allocator.alloc(sv.length + 1);
+        MemoryCopy(result, sv.data, sv.length);
+        for (u64 i = 0; i < sv.length; ++i) {
+                result[i] = tolower(result[i]);
         }
+        result[sv.length] = '\0';
+        return result;
 }
 
-void StringView_toUpper(StringView *sv) {
-        for (u64 i = 0; i < sv->length; ++i) {
-                sv->data[i] = toupper(sv->data[i]);
+char *StringView_toUpper(Allocator allocator, StringView sv) {
+        char *result = allocator.alloc(sv.length + 1);
+        MemoryCopy(result, sv.data, sv.length);
+        for (u64 i = 0; i < sv.length; ++i) {
+                result[i] = toupper(result[i]);
         }
+        result[sv.length] = '\0';
+        return result;
 }
 
 u64 StringView_count(StringView sv, char c) {

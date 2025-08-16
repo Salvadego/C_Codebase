@@ -43,8 +43,8 @@ b8 StringView_startsWith(StringView sv, StringView prefix);
 b8 StringView_endsWith(StringView sv, StringView suffix);
 
 char *StringView_toChar(Allocator allocator, StringView sv);
-void StringView_toLower(StringView *sv);
-void StringView_toUpper(StringView *sv);
+char *StringView_toLower(Allocator allocator, StringView sv);
+char *StringView_toUpper(Allocator allocator, StringView sv);
 
 u64 StringView_count(StringView sv, char c);
 u64 StringView_countSV(StringView sv, StringView sv2);
