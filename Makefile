@@ -1,12 +1,14 @@
 CC = gcc
 ENABLE_ASSERT = -DENABLE_ASSERT=1
 CFLAGS = -Wall -Werror -Wextra -std=c99 $(ENABLE_ASSERT)
+SANITIZE = -fsanitize=address,undefined -fno-omit-frame-pointer
 TARGET_DIR = bin
 BUILD_DIR = build
 TARGET = $(TARGET_DIR)/main
 SRC = ./src/main.c
 OBJ = $(SRC:./src/%.c=$(BUILD_DIR)/%.o)
-DEBUGFLAGS = -DDEBUG
+DEBUGFLAGS = -DDEBUG -g -O0
+RELEASEFLAGS = -O2
 
 .PHONY: all clean run test
 
@@ -30,8 +32,11 @@ clean:
 	rm -rf $(TARGET_DIR)
 	rm -rf $(BUILD_DIR)
 
-debug: CFLAGS += -DDEBUG
+debug: CFLAGS += $(DEBUGFLAGS) $(SANITIZE)
 debug: clean all
+
+release: CFLAGS += $(RELEASEFLAGS)
+release: clean all
 
 TEST_PATH ?= test
 

@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+#include "base/macros.h"
+#include "core/memory.h"
+
+#define MEMORY_USE_VM 0
 #define CORE_IMPLEMENTATION
 #include "core/core.h"
 
@@ -7,15 +11,15 @@ i32 main(void) {
         // ================================
         // Arena example
         // ================================
-        Arena arena = arena_create(1024);  // 1 KB arena
+        Arena arena = arena_create(Kilobytes(1));  // 1 KB arena
 
-        int* numbers = (int*)arena_push(&arena, 10 * sizeof(int));
+        i32* numbers = (i32*)arena_push(&arena, 10 * sizeof(i32));
         for (int i = 0; i < 10; i++) {
                 numbers[i] = i * i;
         }
 
         printf("Arena numbers:\n");
-        for (int i = 0; i < 10; i++) {
+        for (i32 i = 0; i < 10; i++) {
                 printf("%d ", numbers[i]);
         }
         printf("\n");
@@ -31,11 +35,11 @@ i32 main(void) {
         // ================================
         // Pool example
         // ================================
-        Pool pool = pool_create(sizeof(int), 4);  // 4 ints capacity
+        Pool pool = pool_create(sizeof(i32), 4);  // 4 ints capacity
 
-        int* a = (int*)pool_alloc(&pool);
-        int* b = (int*)pool_alloc(&pool);
-        int* c = (int*)pool_alloc(&pool);
+        i32* a = (i32*)pool_alloc(&pool);
+        i32* b = (i32*)pool_alloc(&pool);
+        i32* c = (i32*)pool_alloc(&pool);
 
         *a = 42;
         *b = 99;

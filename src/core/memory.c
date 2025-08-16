@@ -82,16 +82,19 @@ void* mem_alloc(u64 size) {
         Assert(p != null || size == 0);
         return p;
 }
+
 void* mem_alloc_zero(u64 size) {
         void* p = mem_alloc(size);
         if (p) MemoryZero(p, (size_t)size);
         return p;
 }
+
 void* mem_realloc(void* ptr, u64 new_size) {
         void* p = realloc(ptr, (size_t)new_size);
         Assert(p != null || new_size == 0);
         return p;
 }
+
 void mem_free(void* ptr) {
         free(ptr);
 }
@@ -119,10 +122,12 @@ Arena arena_from_buffer(void* memory, u64 size) {
 
 void arena_destroy(Arena* arena) {
         if (!arena || !arena->base) return;
-#if BASE_OS_WINDOWS
+#if MEMORY_USE_VM
+#        if BASE_OS_WINDOWS
         VirtualFree(arena->base, 0, MEM_RELEASE);
-#elif BASE_OS_LINUX || BASE_OS_MACOS
+#        elif BASE_OS_LINUX || BASE_OS_MACOS
         munmap(arena->base, arena->size);
+#        endif
 #else
         free(arena->base);
 #endif
