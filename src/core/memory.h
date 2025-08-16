@@ -44,8 +44,6 @@ typedef void (*AllocatorFree)(void *ptr);
 
 typedef struct {
         AllocatorAlloc alloc;
-        AllocatorAllocZero alloc_zero;
-        AllocatorRealloc realloc;
         AllocatorFree free;
 } Allocator;
 

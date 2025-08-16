@@ -21,8 +21,6 @@
 i32 main(void) {
         Allocator allocator = {
             .alloc = mem_alloc,
-            .alloc_zero = mem_alloc_zero,
-            .realloc = mem_realloc,
             .free = mem_free,
         };
 
