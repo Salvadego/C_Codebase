@@ -99,7 +99,8 @@ local const char *MonthShort[] = {
     [Month_September] = "Sep",
     [Month_October] = "Oct",
     [Month_November] = "Nov",
-    [Month_December] = "Dec"};
+    [Month_December] = "Dec",
+};
 
 local const char *MonthLong[] = {
     [Month_January] = "January",
@@ -113,7 +114,8 @@ local const char *MonthLong[] = {
     [Month_September] = "September",
     [Month_October] = "October",
     [Month_November] = "November",
-    [Month_December] = "December"};
+    [Month_December] = "December",
+};
 
 local const char *DayOfWeekShort[] = {
     [DayOfWeek_Monday] = "Mon",
