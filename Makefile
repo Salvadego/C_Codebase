@@ -7,7 +7,7 @@ BUILD_DIR = build
 TARGET = $(TARGET_DIR)/main
 SRC = ./src/main.c
 OBJ = $(SRC:./src/%.c=$(BUILD_DIR)/%.o)
-DEBUGFLAGS = -DDEBUG -g -O0
+DEBUGFLAGS = -DDEBUG -ggdb -O0
 RELEASEFLAGS = -O2
 
 .PHONY: all clean run test
