@@ -38,13 +38,9 @@ void mem_free(void *ptr);
 // ===============
 
 typedef void *(*AllocatorAlloc)(u64 size);
-typedef void *(*AllocatorAllocZero)(u64 size);
-typedef void *(*AllocatorRealloc)(void *ptr, u64 size);
-typedef void (*AllocatorFree)(void *ptr);
 
 typedef struct {
         AllocatorAlloc alloc;
-        AllocatorFree free;
 } Allocator;
 
 // ===============

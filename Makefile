@@ -37,21 +37,3 @@ debug: clean all
 
 release: CFLAGS += $(RELEASEFLAGS)
 release: clean all
-
-TEST_PATH ?= test
-
-test:
-	@if [ -d "$(TEST_PATH)" ]; then \
-		echo "Running tests in directory $(TEST_PATH)..."; \
-		mkdir -p $(BUILD_DIR); \
-		for f in $(TEST_PATH)/*.c; do \
-			[ -f "$$f" ] || continue; \
-			$(CC) $(CFLAGS) -o $(BUILD_DIR)/$$(basename $$f .c) $$f && $(BUILD_DIR)/$$(basename $$f .c); \
-		done; \
-	elif [ -f "$(TEST_PATH)" ]; then \
-		echo "Running test file $(TEST_PATH)..."; \
-		mkdir -p $(BUILD_DIR); \
-		$(CC) $(CFLAGS) -o $(BUILD_DIR)/$$(basename $(TEST_PATH) .c) $(TEST_PATH) && $(BUILD_DIR)/$$(basename $(TEST_PATH) .c); \
-	else \
-		echo "Test file or directory '$(TEST_PATH)' not found."; exit 1; \
-	fi
