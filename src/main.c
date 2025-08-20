@@ -1,29 +1,28 @@
 #include <stdio.h>
 
+#include "base/macros.h"
+#include "base/types.h"
+#include "core/array.h"
+
 #define MEMORY_USE_VM 0
 #define CORE_IMPLEMENTATION
 #include "core/core.h"
 
+DefineArrayType(u64, U64);
+
 int main(void) {
-        StringView sv = StringView_newFromChar("   Hello, World!   ");
+        const u64 expected_count = 1e6;
+        const u64 kilobytes = (expected_count * sizeof(u64)) / 1000;
+        printf("Allocating %lu megabytes\n", kilobytes / 1000);
+        Arena arena = arena_create(Kilobytes(kilobytes));
 
-        printf("Original: ");
-        StringView_print(sv);
+        U64Array a;
+        U64ArrayInit(&a, &arena);
 
-        StringView trimmed = StringView_trimWhitespace(sv);
-        printf("Trimmed: ");
-        StringView_print(trimmed);
+        for (u64 i = 0; i < expected_count; ++i) {
+                U64ArrayPush(&a, i);
+        }
 
-        StringView copy = sv;
-        StringView_trimWhitespaceInPlace(&copy);
-        printf("Trimmed in-place: ");
-        StringView_print(copy);
-
-        StringView chopped = StringView_chopByDelimiter(&copy, ',');
-        printf("Chopped head: ");
-        StringView_print(chopped);
-        printf("Remaining: ");
-        StringView_print(copy);
-
+        arena_destroy(&arena);
         return 0;
 }

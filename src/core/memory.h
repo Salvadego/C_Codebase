@@ -37,10 +37,13 @@ void mem_free(void *ptr);
 // Allocator Type
 // ===============
 
-typedef void *(*AllocatorAlloc)(u64 size);
+typedef void *(*AllocatorAlloc)(u64 size, void *ctx);
+typedef void (*AllocatorFree)(void *ptr, void *ctx);
 
 typedef struct {
         AllocatorAlloc alloc;
+        AllocatorFree free;
+        void *ctx;
 } Allocator;
 
 // ===============
@@ -94,6 +97,9 @@ function inline void *arena_alloc_t(
         u64 bytes = count * elem_size;
         return arena_alloc(a, bytes, align);
 }
+
+Allocator ArenaAllocator(Arena *arena);
+Allocator HeapAllocator(void);
 
 #ifdef __cplusplus
 }

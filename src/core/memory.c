@@ -263,3 +263,50 @@ void pool_free(Pool* p, void* ptr) {
         *(u64*)b = p->free_head;
         p->free_head = idx;
 }
+
+// ==============
+// Heap Allocator
+// ==============
+
+function void* HeapAllocFn(u64 size, void* ctx) {
+        (void)ctx;
+        return mem_alloc(size);
+}
+
+function void HeapFreeFn(void* ptr, void* ctx) {
+        (void)ctx;
+        mem_free(ptr);
+}
+
+Allocator HeapAllocator(void) {
+        Allocator a = {
+            .alloc = HeapAllocFn,
+            .free = HeapFreeFn,
+            .ctx = NULL,
+        };
+        return a;
+}
+
+// ==============
+// Arena Allocator
+// ==============
+
+function void* ArenaAllocFn(u64 size, void* ctx) {
+        Arena* arena = (Arena*)ctx;
+        return arena_push(arena, size);
+}
+
+function void ArenaFreeFn(void* ptr, void* ctx) {
+        (void)ptr;
+        (void)ctx;
+        // no-op for arenas
+}
+
+Allocator ArenaAllocator(Arena* arena) {
+        Allocator a = {
+            .alloc = ArenaAllocFn,
+            .free = ArenaFreeFn,
+            .ctx = arena,
+        };
+        return a;
+}

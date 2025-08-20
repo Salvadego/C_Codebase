@@ -3,6 +3,7 @@
 #include "../base/base.h"
 #include "memory.h"
 #include "string.h"
+#include "array.h"
 
 #ifdef CORE_IMPLEMENTATION
 

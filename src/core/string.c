@@ -1,5 +1,3 @@
-#pragma once
-
 #include "string.h"
 
 #include <ctype.h>
@@ -131,7 +129,7 @@ b8 StringView_endsWith(StringView sv, StringView suffix) {
 // --- Conversions ---
 
 char *StringView_toChar(Allocator allocator, StringView sv) {
-        char *result = allocator.alloc(sv.length + 1);
+        char *result = allocator.alloc(sv.length + 1, allocator.ctx);
         MemoryCopy(result, sv.data, sv.length);
         result[sv.length] = '\0';
         return result;
